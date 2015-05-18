@@ -10,4 +10,7 @@
   = f.input :image, as: :attachment
   = f.input :categories
 
-  = f.submit 'Save'
+  .controls
+    = f.submit 'Save'
+    - unless f.object.new_record?
+      = link_to 'Deploy this Podcast', deploy_podcast_path(f.object), class: 'large button success'

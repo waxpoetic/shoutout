@@ -1,8 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Episode, type: :model do
+  let :podcast do
+    podcasts :brotherly_audio
+  end
+
   subject do
-    Episode.new(
+    podcast.episodes.build(
       title: 'Episode One',
       author: 'brother.ly',
       subtitle: 'Michael NightTime, The Wonder Bars, Mambisa, Highly Desirable',

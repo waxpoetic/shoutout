@@ -1,27 +1,28 @@
 = title podcast.title
 
-.deploy
-  = link_to 'Deploy this Podcast', deploy_podcast_path(podcast), class: 'large button success'
-
-.information
+.information.row
   = render 'form'
 
-.episodes
-  - if podcast.episodes.any?
+.episodes.row
+  .large-12.columns
     %table
       %thead
         %tr
           %th Title
           %th Duration
-          %th= link_to 'Upload', new_podcast_episode_path(podcast), class: 'button secondary'
+          %th
+            = link_to 'Upload', new_podcast_episode_path(podcast), class: 'button secondary'
 
       %tbody
-        - podcast.episodes.order(:published_at).each do |episode|
+        - unless podcast.episodes.any?
+          %tr.none
+            %td{ colspan: 3 }
+              %p No episodes available.
+        - podcast.episodes.in_sequence.each do |episode|
           %tr.episode
-            %td.title= link_to episode.title, episode
+            %td.title= episode.title
             %td.duration= episode.duration
-            %td= link_to 'Download', episode.enclosure.url, class: 'button'
-  - else
-    %p.none
-      No episodes available.
-      = link_to 'Add one', new_podcast_episode_path(podcast), class: 'button secondary'
+            %td.controls
+              %ul
+                %li.edit= link_to 'Edit', episode, class: 'button'
+                  %li.destroy= link_to 'Delete', episode, remote: true, method: :delete, class: 'button warning'

@@ -15,9 +15,9 @@ class Episode < ActiveRecord::Base
   validates :enclosure,     presence: true
   validates :published_at,  presence: true
   validates :duration,      presence: true
-  validates :is_video,      presence: true
 
   scope :with_video, -> { where is_video: true }
+  scope :in_sequence, -> { order :published_at }
 end
 
 # == Schema Information

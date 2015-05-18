@@ -1,3 +1,4 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+jQuery ->
+  # When episodes are deleted, fade them out from the table.
+  $('.episode .destroy a').on 'ajax:success', (episode, event) ->
+    $(event.currentTarget).closest('.episode').fadeOut 250, -> $(this).remove()

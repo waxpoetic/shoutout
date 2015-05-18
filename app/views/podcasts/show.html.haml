@@ -7,16 +7,21 @@
   = render 'form'
 
 .episodes
-  %table
-    %thead
-      %tr
-        %th Title
-        %th Duration
-        %th= link_to 'Upload', new_podcast_episode_path(podcast), class: 'button secondary'
+  - if podcast.episodes.any?
+    %table
+      %thead
+        %tr
+          %th Title
+          %th Duration
+          %th= link_to 'Upload', new_podcast_episode_path(podcast), class: 'button secondary'
 
-    %tbody
-      - podcast.episodes.order(:published_at).each do |episode|
-        %tr.episode
-          %td.episode__title= link_to episode.title, episode
-          %td= episode.duration
-          %td= link_to 'Download', episode.enclosure.url, class: 'button'
+      %tbody
+        - podcast.episodes.order(:published_at).each do |episode|
+          %tr.episode
+            %td.title= link_to episode.title, episode
+            %td.duration= episode.duration
+            %td= link_to 'Download', episode.enclosure.url, class: 'button'
+  - else
+    %p.none
+      No episodes available.
+      = link_to 'Add one', new_podcast_episode_path(podcast), class: 'button secondary'

@@ -1,7 +1,30 @@
 require 'rails_helper'
 
 RSpec.describe Podcast, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject do
+    Podcast.new(
+      title: 'brother.ly video',
+      link: 'http://brother.ly',
+      language: 'en-us',
+      copyright: '&copy; 2015 Wax Poetic Records',
+      subtitle: 'Video transmissions',
+      author: 'brother.ly impresarios',
+      description: 'All video recordings of brother.ly events',
+      email: 'events@thewonderbars.com',
+      image_id: 'podcast.png',
+      categories: ['Music']
+    )
+  end
+
+  it 'validates all attributes' do
+    expect(subject).to be_valid
+  end
+
+  it 'can be deployed' do
+    allow(DeployPodcastJob).to receive(:perform_later).and_return(false)
+    allow(DeployPodcastJob).to receive(:perform_later).with(subject).and_return(true)
+    expect(subject.deploy).to eq(true)
+  end
 end
 
 # == Schema Information

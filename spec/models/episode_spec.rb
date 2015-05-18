@@ -1,7 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe Episode, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject do
+    Episode.new(
+      title: 'Episode One',
+      author: 'brother.ly',
+      subtitle: 'Michael NightTime, The Wonder Bars, Mambisa, Highly Desirable',
+      summary: 'We rock the party that rocks the party.',
+      image_id: 'cover.png',
+      enclosure_id: 'music.mp3',
+      published_at: DateTime.now,
+      duration: '01:04:20'
+    )
+  end
+
+  it 'validates all attributes' do
+    expect(episode).to be_valid
+  end
 end
 
 # == Schema Information

@@ -1,6 +1,13 @@
 class EpisodeDecorator < Draper::Decorator
   delegate_all
 
+  def full_title
+    [
+      title,
+      podcast.title
+    ].join(' - ')
+  end
+
   def enclosure_url
     helpers.attachment_url model, :enclosure
   end

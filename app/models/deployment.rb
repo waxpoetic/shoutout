@@ -1,3 +1,7 @@
+require 'aws/s3'
+require 'aws/cloudfront'
+require 'erb'
+
 # Renders a Podcast as XML and uploads the XML file to Amazon S3, then
 # invalidates the currently-uploaded file on CloudFront which forces
 # edge machines to re-download the file.

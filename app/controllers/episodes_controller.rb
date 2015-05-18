@@ -2,7 +2,7 @@ class EpisodesController < ApplicationController
   expose :podcast
 
   resource :episode do
-    ancestor :podcast
+    #ancestor :podcast
     search :title, :author, :subtitle, :summary, :published_at, :duration
     modify :title, :author, :subtitle, :summary, :image, :enclosure, :published_at, :duration
   end

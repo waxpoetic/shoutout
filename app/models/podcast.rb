@@ -12,10 +12,13 @@ class Podcast < ActiveRecord::Base
   validates :description, presence: true
   validates :email,       presence: true
   validates :image,       presence: true
-  validates :categories,  presence: true
 
   def deploy
     DeployPodcastJob.perform_later self
+  end
+
+  def is_video?
+    podcast.episodes.with_video.any?
   end
 end
 

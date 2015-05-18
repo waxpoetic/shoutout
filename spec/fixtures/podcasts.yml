@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: podcasts
+#
+#  id          :integer          not null, primary key
+#  title       :string
+#  link        :string
+#  language    :string           default("en-us")
+#  copyright   :string
+#  subtitle    :string
+#  author      :string
+#  description :string
+#  email       :string
+#  image_id    :string
+#  categories  :string           is an Array
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
 brotherly_audio:
   title: brother.ly audio
   link: http://brother.ly
@@ -7,5 +26,4 @@ brotherly_audio:
   author: Wax Poetic Records
   description: brother.ly is a monthly party and podcast from Philly.
   email: events@thewonderbars.com
-  image_id: brotherly.png
-  categories: Music, Electronic
+  image_id: logo

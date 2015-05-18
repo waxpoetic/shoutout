@@ -23,4 +23,4 @@ User.create do |user|
   user.remember_me = true
 end
 
-ActiveRecord::Fixtures.create_fixtures "spec/fixtures/podcasts.yml"
+ActiveRecord::FixtureSet.create_fixtures 'spec/fixtures', %w(podcasts)

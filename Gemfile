@@ -15,10 +15,12 @@ gem 'foundation-rails'
 gem 'uglifier',         '~> 1.3'
 gem 'jquery-rails'
 gem 'autoprefixer-rails'
-gem 'refile'
+gem 'refile', require: 'refile/rails'
 gem 'devise'
 gem 'pundit'
 gem 'haml-rails'
+gem 'aws-sdk'
+gem 'refile-s3', github: 'refile/refile-s3'
 
 group :development do
   gem 'meta_request'

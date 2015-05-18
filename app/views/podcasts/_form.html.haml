@@ -1,0 +1,13 @@
+= simple_form_for podcast do |f|
+  = f.input :title
+  = f.input :link
+  = f.input :language
+  = f.input :copyright
+  = f.input :subtitle
+  = f.input :author
+  = f.input :description
+  = f.input :email, as: :email
+  = f.input :image, as: :file
+  = f.input :categories
+
+  = f.submit 'Save'

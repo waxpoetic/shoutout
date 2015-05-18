@@ -1,0 +1,10 @@
+%h1 Podcasts
+
+%ul.podcasts
+  - podcasts.each do |podcast|
+    %li
+      .image
+        = image_tag podcast.image.url
+      .information
+        %h1= link_to podcast.title, podcast
+        %p= podcast.description

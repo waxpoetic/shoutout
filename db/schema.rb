@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20150518071644) do
     t.string   "author"
     t.string   "description"
     t.string   "email"
-    t.string   "image"
+    t.string   "image_id"
     t.string   "categories",                                 array: true
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false

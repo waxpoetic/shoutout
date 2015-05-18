@@ -11,7 +11,7 @@
 #  author      :string
 #  description :string
 #  email       :string
-#  image       :string
+#  image_id    :string
 #  categories  :string           is an Array
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null

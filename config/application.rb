@@ -33,5 +33,9 @@ module Shoutout
 
     # Use localhost as mail server (for Devise)
     #config.action_mailer.default_url_options = { host: 'localhost:3000' }
+    #
+    config.s3 = ActiveSupport::OrderedOptions.new
+    config.s3.bucket = 'brother.ly'
+    config.s3.filename = 'podcast.xml'
   end
 end

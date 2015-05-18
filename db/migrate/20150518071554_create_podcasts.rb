@@ -9,7 +9,7 @@ class CreatePodcasts < ActiveRecord::Migration
       t.string :author
       t.string :description
       t.string :email
-      t.string :image
+      t.string :image_id
       t.string :categories, array: true
 
       t.timestamps null: false

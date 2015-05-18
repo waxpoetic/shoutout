@@ -54,6 +54,10 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers, type: :feature
   config.include Devise::TestHelpers, type: :request
 
+  config.before do
+    login_as users(:admin), scope: :user if options[:admin]
+  end
+
   config.after do
     Warden.test_reset!
   end

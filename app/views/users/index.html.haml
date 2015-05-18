@@ -1,0 +1,16 @@
+= title 'Users'
+
+.users
+  %table
+    %thead
+      %tr
+        %th Email
+        %th= link_to 'New User', new_user_registration_path, class: 'button'
+    %tbody
+      - users.each do |user|
+        %tr
+          %td= link_to user.email, user
+          %td
+            = link_to 'Edit', edit_user_registration_path(user), class: 'button'
+            = link_to 'Destroy', destroy_user_registration_path(user), class: 'button'
+

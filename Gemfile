@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-source 'https://rails-assets.org'
+#source 'https://rails-assets.org'
 
 gem 'rails', '~> 4.2'
 gem 'pg'
@@ -9,19 +9,24 @@ gem 'sidekiq'
 gem 'draper'
 gem 'simple_form'
 gem 'controller_resources'
-
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'foundation-rails'
 gem 'uglifier',         '~> 1.3'
 gem 'jquery-rails'
 gem 'autoprefixer-rails'
+gem 'refile'
+gem 'devise'
+gem 'pundit'
+gem 'haml-rails'
 
 group :development do
   gem 'meta_request'
   gem 'quiet_assets'
   gem 'spring'
+  gem 'spring-commands-rspec'
   gem 'web-console', '~> 2.0'
+  gem 'annotate'
 end
 
 group :development, :test do

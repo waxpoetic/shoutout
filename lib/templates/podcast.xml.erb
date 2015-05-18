@@ -19,10 +19,6 @@
 
     <itunes:image href="<%= podcast.image.url %>" />
 
-    <itunes:category text="Technology">
-      <itunes:category text="Gadgets"/>
-    </itunes:category>
-
     <% podcast.categories.each do |category| %>
       <itunes:category text="<%= category %>" />
     <% end %>

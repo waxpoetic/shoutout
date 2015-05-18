@@ -6,6 +6,9 @@ class Deployment
 
   attr_accessor :podcast
 
+  validates :file, presence: { message: 'not found' }
+  validates :template, presence: { message: 'could not be parsed' }
+
   def self.create(podcast)
     new(podcast: podcast).save
   end
@@ -20,17 +23,7 @@ class Deployment
   end
 
   def save
-    s3.put_object(attributes)
-    cloudfront.create_invalidation(
-      distribution_id: Rails.application.secrets.aws_cloudfront_distribution_id,
-      invalidation_batch: {
-        paths: {
-          quantity: 1,
-          items: ['string', Rails.application.config.s3.filename]
-        }
-      },
-      caller_reference: 'string'
-    )
+    valid? && upload && invalidate
   end
 
   def persisted?
@@ -43,15 +36,40 @@ class Deployment
 
   private
 
-  def template
-    ERB.new source
+  def upload
+    s3.put_object(attributes)
   end
 
-  def source
+  def invalidate
+    cloudfront.create_invalidation(
+      distribution_id: Rails.application.secrets.aws_cloudfront_distribution_id,
+      invalidation_batch: {
+        paths: {
+          quantity: 1,
+          items: ['string', Rails.application.config.s3.filename]
+        }
+      },
+      caller_reference: 'string'
+    )
+  end
+
+  def template
+    ERB.new file
+  rescue StandardError
+    nil
+  end
+
+  def file
     File.read "#{Rails.root}/lib/templates/podcast.xml.erb"
+  rescue StandardError
+    nil
   end
 
   def s3
     AWS::S3.new
+  end
+
+  def cloudfront
+    AWS::CloudFront.new
   end
 end

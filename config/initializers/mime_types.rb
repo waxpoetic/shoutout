@@ -1,2 +1,2 @@
 # Render podcast feeds.
-Mime::Type.register "application/rss+xml", :rss
+#Mime::Type.register "application/rss+xml", :rss

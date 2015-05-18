@@ -7,6 +7,10 @@ class PodcastsController < ApplicationController
     respond_with podcasts
   end
 
+  def new
+    render :new
+  end
+
   def show
     respond_with podcast
   end

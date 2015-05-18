@@ -10,4 +10,11 @@
     = javascript_include_tag "application", 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    = yield
+    %header
+      %nav
+        %ul.title-area
+          %li
+            %h1= link_to 'Shoutout', root_path
+
+    %main
+      = yield

@@ -20,6 +20,11 @@ class EpisodesController < ApplicationController
     respond_with episode
   end
 
+  def update
+    episode.update_attributes edit_params
+    respond_with episode
+  end
+
   def destroy
     episode.destroy
     respond_with episodes_path

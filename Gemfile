@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 4.2'
 gem 'pg'
-gem 'active_model_serializers'
 gem 'puma'
 gem 'sidekiq'
 gem 'draper'
@@ -45,4 +44,5 @@ group :production do
   gem 'rack-cache'
   gem 'redis-rails'
   gem 'asset_sync'
+  gem 'rails_12factor'
 end

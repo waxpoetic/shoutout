@@ -42,7 +42,6 @@ RSpec.feature 'when managing episodes for podcasts', admin: true do
     visit podcasts_path(podcast)
 
     click_button 'Delete'
-    wait_for_xhr
 
     expect(page).to_not have_content(episode.title)
   end

@@ -1,0 +1,10 @@
+brotherly_audio_one:
+  podcast: brotherly_audio
+  title: whatever
+  author: hello
+  subtitle: hello hi
+  summary: hello hello hello hi
+  image_id: test
+  enclosure_id: anothertest
+  published_at: <%= DateTime.now %>
+  duration: '4:20'

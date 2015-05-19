@@ -23,7 +23,7 @@
       <itunes:category text="<%= category %>" />
     <% end %>
 
-    <% podcast.episodes.map(&:decorate).each do |episode| %>
+    <% podcast.episodes.each do |episode| %>
       <item>
         <title><%= episode.title %></title>
         <itunes:author><%= episode.author %></itunes:author>

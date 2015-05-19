@@ -18,6 +18,10 @@ class Episode < ActiveRecord::Base
 
   scope :with_video, -> { where is_video: true }
   scope :in_sequence, -> { order :published_at }
+
+  def categories
+    read_attribute(:categories) || []
+  end
 end
 
 # == Schema Information

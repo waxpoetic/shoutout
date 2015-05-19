@@ -5,8 +5,12 @@ RSpec.describe Deployment, type: :model do
     podcasts :brotherly_audio
   end
 
+  let :episode do
+    episodes :brotherly_audio_one
+  end
+
   subject do
-    Deployment.new podcast: podcast
+    Deployment.new podcast: podcast.decorate
   end
 
   it 'computes necessary attributes' do
@@ -17,7 +21,9 @@ RSpec.describe Deployment, type: :model do
   end
 
   it 'renders to xml' do
-    expect(subject.to_xml).to include('<?xml')
+    expect(subject.send :template).to be_a(ERB)
+    expect(subject.send :file).to include('<?xml')
+    expect(subject.to_xml).to include(episode.title)
   end
 
   it 'persists to amazon' do

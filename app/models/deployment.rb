@@ -10,7 +10,7 @@ class Deployment
   validates :template, presence: { message: 'could not be parsed' }
 
   def self.create(podcast)
-    new(podcast: podcast).save
+    new(podcast: podcast.decorate).save
   end
 
   def attributes
@@ -55,14 +55,10 @@ class Deployment
 
   def template
     ERB.new file
-  rescue StandardError
-    nil
   end
 
   def file
     File.read "#{Rails.root}/lib/templates/podcast.xml.erb"
-  rescue StandardError
-    nil
   end
 
   def s3

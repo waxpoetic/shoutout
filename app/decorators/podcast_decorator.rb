@@ -4,4 +4,8 @@ class PodcastDecorator < Draper::Decorator
   def image_url
     helpers.attachment_url model, :image
   end
+
+  def episodes
+    model.episodes.in_sequence.map(&:decorate)
+  end
 end

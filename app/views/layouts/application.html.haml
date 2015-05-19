@@ -15,6 +15,11 @@
         %ul.title-area
           %li.name
             %h1= link_to 'Shoutout', root_path
+      - flash.each do |type, message|
+        #messages
+          %div{ data: { alert: true }, class: "#{type} alert-box" }
+            = message
+            = link_to '&times;'.html_safe, '#', class: 'close'
 
     %main.row
       = yield

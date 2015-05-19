@@ -1,10 +1,15 @@
-%h1 Podcasts
+= title 'Podcasts'
 
-%ul.podcasts
-  - podcasts.each do |podcast|
-    %li
-      .image
-        = image_tag podcast.image.url
-      .information
-        %h1= link_to podcast.title, podcast
+- if podcasts.any?
+  %p
+    = link_to 'Manage New Podcast', new_podcast_path, class: 'button'
+  %dl
+    - podcasts.map(&:decorate).each do |podcast|
+      %dt= link_to podcast.title, podcast
+      %dd
+        = image_tag podcast.image_url
         %p= podcast.description
+- else
+  %h2
+    There are no podcasts.
+    = link_to 'Add one?', new_podcast_path

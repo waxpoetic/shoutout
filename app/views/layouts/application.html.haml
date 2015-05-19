@@ -4,17 +4,17 @@
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{:charset => "utf-8"}/
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
-    %title= content_for?(:title) ? "#{yield(:title)} | Shoutout" : "Shoutout"
+    %title= content_for?(:title) ? "#{content_for(:title)} | Shoutout" : "Shoutout"
     = stylesheet_link_tag    "application"
     = javascript_include_tag "vendor/modernizr"
     = javascript_include_tag "application", 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
     %header
-      %nav
+      %nav.top-bar{ data: { topbar: true }, role: 'navigation' }
         %ul.title-area
-          %li
+          %li.name
             %h1= link_to 'Shoutout', root_path
 
-    %main
+    %main.row
       = yield

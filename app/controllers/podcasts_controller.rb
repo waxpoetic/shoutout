@@ -3,6 +3,8 @@ class PodcastsController < ApplicationController
     modify :title, :link, :language, :copyright, :subtitle, :author, :description, :email, :image, :categories
   end
 
+  before_action :authenticate_user!, only: [:index]
+
   def index
     respond_with podcasts
   end

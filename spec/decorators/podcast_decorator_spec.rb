@@ -1,4 +1,4 @@
 require 'spec_helper'
 
-describe PodcastDecorator do
+RSpec.describe PodcastDecorator do
 end

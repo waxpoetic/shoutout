@@ -41,5 +41,9 @@ module Shoutout
     config.s3 = ActiveSupport::OrderedOptions.new
     config.s3.bucket = 'brother.ly'
     config.s3.filename = 'podcast.rss'
+
+    config.generators do |g|
+      g.factory_girl false
+    end
   end
 end

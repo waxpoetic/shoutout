@@ -13,6 +13,15 @@ RSpec.describe Deployment, type: :model do
     Deployment.new podcast: podcast.decorate
   end
 
+  before do
+    allow(subject).to receive(:s3).and_return(
+      double('AWS::S3', put_object: true)
+    )
+    allow(subject).to receive(:cloudfront).and_return(
+      double('AWS::CloudFront', create_invalidation: true)
+    )
+  end
+
   it 'computes necessary attributes' do
     expect(subject.attributes.keys).to include(:acl)
     expect(subject.attributes.keys).to include(:bucket)
@@ -20,11 +29,6 @@ RSpec.describe Deployment, type: :model do
     expect(subject.attributes.keys).to include(:body)
   end
 
-  it 'renders to xml' do
-    expect(subject.send :template).to be_a(ERB)
-    expect(subject.send :file).to include('<?xml')
-    expect(subject.to_xml).to include(episode.title)
-  end
 
   it 'persists to amazon' do
     allow(subject).to receive(:upload).and_return true
@@ -33,16 +37,10 @@ RSpec.describe Deployment, type: :model do
   end
 
   it 'uploads to s3' do
-    allow(subject).to receive(:s3).and_return(
-      double('AWS::S3', put_object: true)
-    )
     expect(subject.send(:upload)).to eq(true)
   end
 
   it 'invalidates on cloudfront' do
-    allow(subject).to receive(:cloudfront).and_return(
-      double('AWS::CloudFront', create_invalidation: true)
-    )
     expect(subject.send(:invalidate)).to eq(true)
   end
 end

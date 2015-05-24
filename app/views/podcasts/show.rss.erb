@@ -24,7 +24,6 @@
     <% end %>
 
     <% podcast.episodes.in_sequence.map(&:decorate).each do |episode| %>
-      <item>
         <title><%= episode.title %></title>
         <itunes:author><%= episode.author %></itunes:author>
         <itunes:subtitle><%= episode.subtitle %></itunes:subtitle>
@@ -36,5 +35,5 @@
         <itunes:duration><%= episode.duration %></itunes:duration>
       </item>
     <% end %>
-  </channel>
+ </channel>
 </rss>

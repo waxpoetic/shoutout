@@ -21,6 +21,7 @@ gem 'refile-s3', github: 'refile/refile-s3'
 gem 'turbolinks', github: 'rails/turbolinks'
 gem 'mediainfo'
 gem 'backport_new_renderer'
+gem 'email_validator'
 
 group :development do
   gem 'meta_request'
@@ -39,6 +40,7 @@ end
 group :test do
   gem 'rspec-rails'
   gem 'capybara'
+  gem 'factory_girl_rails'
 end
 
 group :production do

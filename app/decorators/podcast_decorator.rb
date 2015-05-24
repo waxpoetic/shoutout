@@ -6,6 +6,7 @@ class PodcastDecorator < Draper::Decorator
   end
 
   def episodes
+    return [] if model.episodes.empty?
     model.episodes.in_sequence.map(&:decorate)
   end
 end

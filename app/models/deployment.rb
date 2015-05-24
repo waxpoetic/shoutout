@@ -25,7 +25,7 @@ class Deployment
       acl: 'public-read',
       bucket: Rails.application.config.s3.bucket,
       key: Rails.application.config.s3.filename,
-      body: to_xml
+      body: template.to_xml
     }
   end
 
@@ -52,6 +52,10 @@ class Deployment
   end
 
   private
+
+  def template
+    Template.new self
+  end
 
   def upload
     s3.put_object(attributes)

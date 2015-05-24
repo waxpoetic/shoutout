@@ -16,28 +16,44 @@ RSpec.feature "Podcasts", type: :feature do
     end
   end
 
-  context 'when logged in' do
-    before { sign_in user }
+  def t(id)
+    I18n.translate!(id, resource_name: 'Podcast')
+  end
 
-    scenario 'a collection of podcasts are viewable' do
-      visit podcasts_path
-      expect(page).to have_content('Podcasts')
-    end
+  scenario 'new podcasts can be created' do
+    visit podcasts_path
 
-    context 'a single podcast' do
-      before { visit podcasts_path(podcast) }
+    click_link 'Manage New Podcast'
 
-      scenario 'is viewable' do
-        visit podcasts_path(podcast)
-        expect(page).to have_content(podcast.name)
-      end
+    fill_in 'Title',        with: 'Title of Podcast'
+    fill_in 'Link',         with: 'http://example.com'
+    fill_in 'Copyright',    with: '&copy; 2000 The Author'
+    fill_in 'Subtitle',     with: 'Short description'
+    fill_in 'Author',       with: 'Lester Tester'
+    fill_in 'Description',  with: 'Long description of Podcast'
+    fill_in 'Email',        with: 'user@example.com'
+    click_button 'Save'
 
-      scenario 'can be edited' do
-        fill_in 'Name', with: 'New name'
-        click_button 'Save'
-        expect(page).to have_content('Podcast has been updated.')
-        expect(page).to have_content('New name')
-      end
-    end
+    expect(page).to have_content(t('flash.actions.create.notice'))
+  end
+
+  scenario 'existing podcasts can be edited' do
+    visit podcast_path(podcast)
+
+    fill_in 'Title', with: 'New title of podcast'
+    click_button 'Save'
+
+    expect(page).to have_content('Podcast was successfully updated.')
+    expect(page).to have_content('New title of podcast')
+  end
+
+  scenario 'existing podcasts can be destroyed' do
+    visit podcasts_path
+
+    expect(page).to have_content(podcast.title)
+
+    click_link 'Delete'
+
+    expect(page).not_to have_content(podcast.title)
   end
 end

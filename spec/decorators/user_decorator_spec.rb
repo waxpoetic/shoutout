@@ -1,4 +1,4 @@
 require 'spec_helper'
 
-describe UserDecorator do
+RSpec.describe UserDecorator do
 end

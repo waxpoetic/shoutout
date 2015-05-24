@@ -1,3 +1,26 @@
+# == Schema Information
+#
+# Table name: episodes
+#
+#  id           :integer          not null, primary key
+#  podcast_id   :integer
+#  title        :string
+#  author       :string
+#  subtitle     :string
+#  summary      :string
+#  image_id     :string
+#  enclosure_id :string
+#  published_at :datetime
+#  duration     :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  is_video     :boolean          default(FALSE)
+#
+# Indexes
+#
+#  index_episodes_on_podcast_id  (podcast_id)
+#
+
 brotherly_audio_one:
   podcast: brotherly_audio
   title: whatever

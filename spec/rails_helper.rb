@@ -53,4 +53,15 @@ RSpec.configure do |config|
 
   config.include Warden::Test::Helpers, type: :feature
   config.include Devise::TestHelpers,   type: :controller
+  config.include Rails.application.routes.url_helpers, type: :feature
+
+  config.before :suite do
+    Warden.test_mode!
+  end
+
+  config.before :each do |example|
+    if example.metadata[:admin]
+      login_as users(:admin), scope: :user
+    end
+  end
 end

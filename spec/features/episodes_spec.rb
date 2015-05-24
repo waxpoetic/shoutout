@@ -9,40 +9,49 @@ RSpec.feature 'when managing episodes for podcasts', admin: true do
     episode.podcast
   end
 
-  scenario 'episodes can be navigated to from the podcast page' do
-    visit podcasts_path(podcast)
+  context 'on the podcasts page' do
+    before do
+      visit podcast_path(podcast)
+    end
 
-    click_link 'Edit'
+    scenario 'episodes can be navigated to from the podcast page' do
+      click_link 'Edit'
 
-    expect(page).to have_content(episode.title)
+      expect(page).to have_content(episode.title)
+    end
+
+    scenario 'new episodes can be uploaded' do
+      click_link 'Upload'
+      fill_in 'Title', with: 'Episode Name'
+      expect(page).to have_content('Save')
+      click_button 'Save'
+
+      expect(page).to have_content('New episode has been uploaded.')
+      expect(page).to have_content('Episode Name')
+    end
   end
 
-  scenario 'new episodes can be uploaded' do
-    visit episodes_path(episode)
+  context 'on the episode page' do
+    before do
+      visit podcast_episode_path(podcast_id: podcast.id, id: episode.id, format: :html)
+    end
 
-    click_link 'Upload'
-    fill_in 'Title', with: 'Episode Name'
-    click_button 'Save'
+    scenario 'existing episodes can be edited' do
+      fill_in 'Title', with: 'New episode name'
+      click_button 'Save'
 
-    expect(page).to have_content('New episode has been uploaded.')
-    expect(page).to have_content('Episode Name')
-  end
+      expect(page).to have_content('New episode has been uploaded.')
+      expect(page).to have_content('New episode name')
+    end
 
-  scenario 'existing episodes can be edited' do
-    visit episodes_path(episode)
+    scenario 'existing episodes can be destroyed' do
+      visit podcasts_path(podcast, format: :html)
 
-    fill_in 'Title', with: 'New episode name'
-    click_button 'Save'
+      expect(page).to_not have_content('No episodes')
 
-    expect(page).to have_content('New episode has been uploaded.')
-    expect(page).to have_content('New episode name')
-  end
+      click_button 'Delete'
 
-  scenario 'existing episodes can be destroyed' do
-    visit podcasts_path(podcast)
-
-    click_button 'Delete'
-
-    expect(page).to_not have_content(episode.title)
+      expect(page).to_not have_content(episode.title)
+    end
   end
 end

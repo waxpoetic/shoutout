@@ -2,8 +2,11 @@
   = f.input :title
   = f.input :subtitle
   = f.input :author, value: podcast.author
-  = f.input :summary, as: :text_area
+  = f.input :summary
   = f.input :image, as: :attachment, value: podcast.image
   = f.input :enclosure, as: :attachment
   = f.input :duration
   = f.input :published_at
+
+  .controls
+    = f.submit 'Save'

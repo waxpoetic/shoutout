@@ -13,13 +13,11 @@ class Podcast < ActiveRecord::Base
   validates :email,       presence: true
   validates :image,       presence: true
 
-  def deploy
-    DeployPodcastJob.perform_later self
-  end
-
   def is_video?
     podcast.episodes.with_video.any?
   end
+
+  validates :categories,  presence: true
 end
 
 # == Schema Information

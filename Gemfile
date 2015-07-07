@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 gem 'rails', '~> 4.2'
 gem 'pg'
 gem 'puma'
-gem 'sidekiq'
 gem 'draper'
 gem 'simple_form'
 gem 'controller_resources'
@@ -44,4 +43,5 @@ group :production do
   gem 'redis-rails'
   gem 'asset_sync'
   gem 'rails_12factor'
+  gem 'sidekiq'
 end

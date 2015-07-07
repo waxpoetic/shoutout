@@ -21,8 +21,11 @@ Bundler.require :default, Rails.env
 
 module Shoutout
   class Application < Rails::Application
+    # Use the responders controller from the responders gem
+    config.app_generators.scaffold_controller :responders_controller
+
     # Use EST as our local time zone. (UTC is default)
-    #config.time_zone = 'Eastern Time (US & Canada)'
+    config.time_zone = 'Eastern Time (US & Canada)'
 
     # Raise errors during transactional callback methods. This will be
     # the default in upcoming versions of Rails.
@@ -33,9 +36,10 @@ module Shoutout
 
     # Use localhost as mail server (for Devise)
     #config.action_mailer.default_url_options = { host: 'localhost:3000' }
-    #
+
+    # Configure AWS credentials.
     config.s3 = ActiveSupport::OrderedOptions.new
     config.s3.bucket = 'brother.ly'
-    config.s3.filename = 'podcast.xml'
+    config.s3.filename = 'podcast.rss'
   end
 end

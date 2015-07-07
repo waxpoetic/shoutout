@@ -3,8 +3,6 @@ class PodcastsController < ApplicationController
     modify :title, :link, :language, :copyright, :subtitle, :author, :description, :email, :image, :categories
   end
 
-  before_action :authenticate_user!, only: [:index]
-
   def index
     respond_with podcasts
   end
@@ -33,7 +31,7 @@ class PodcastsController < ApplicationController
   end
 
   def deploy
-    podcast.deploy
+    DeployPodcastJob.perform_later podcast
     respond_with podcast
   end
 end

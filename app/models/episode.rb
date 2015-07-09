@@ -17,22 +17,19 @@ class Episode < ActiveRecord::Base
   validates :enclosure,     presence: true
   validates :published_at,  presence: true
 
-  after_create :analyze_duration
+  after_commit :analyze_duration, on: [:create]
+  after_commit :deploy,           on: [:update, :destroy]
 
   scope :with_video, -> { where is_video: true }
   scope :in_sequence, -> { order :published_at }
 
-  after_commit :deploy_podcast
+  delegate :deploy, to: :podcast
 
   def categories
     read_attribute(:categories) || []
   end
 
   private
-
-  def deploy_podcast
-    podcast.deploy
-  end
 
   def use_podcast_defaults
     self.image ||= podcast.image

@@ -1,4 +1,4 @@
-= simple_form_for podcast do |f|
+= simple_form_for podcast, remote: true do |f|
   = f.input :title
   = f.input :link
   = f.input :language
@@ -12,5 +12,3 @@
 
   .controls
     = f.submit 'Save'
-    - unless f.object.new_record?
-      = link_to 'Deploy this Podcast', deploy_podcast_path(f.object), class: 'large button success'

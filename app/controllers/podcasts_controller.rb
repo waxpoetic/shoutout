@@ -1,4 +1,6 @@
 class PodcastsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:show]
+
   resource :podcast do
     modify :title, :link, :language, :copyright, :subtitle, :author, :description, :email, :image, :categories
   end

@@ -3,7 +3,7 @@
 #podcast
   .title
     %h2 Edit
-    = link_to 'Deploy', deploy_podcast_path(podcast), class: 'large deploy button success'
+    = link_to 'Deploy', deploy_podcast_path(podcast), class: 'large deploy button success', remote: true
 
   .details
     = render 'form'
@@ -21,13 +21,14 @@
               = link_to_modal 'Upload', new_podcast_episode_path(podcast), class: 'upload button secondary'
 
         %tbody
-          - podcast.episodes.order(:published_at).each do |episode|
+          - podcast.episodes.in_sequence.map(&:decorate).each do |episode|
             - cache episode do
               %tr{ id: "episodes:#{episode.id}", itemid: episode.id }
+                %td.image= image_tag episode.image_url
                 %td.title= link_to episode.title, episode
                 %td.duration= episode.duration
                 %td.controls
                   %nav
-                    = link_to 'Download', episode.enclosure.url, class: 'download button'
+                    = link_to 'Download', episode.download_url, class: 'download button'
                     = link_to_modal 'Edit', episode, class: 'edit button'
                     = link_to 'Delete', episode, class: 'delete button', method: :delete

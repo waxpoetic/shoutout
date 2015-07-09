@@ -23,15 +23,15 @@
       <itunes:category text="<%= category %>" />
     <% end %>
 
-    <% podcast.episodes.each do |episode| %>
+    <% podcast.episodes.in_sequence.map(&:decorate).each do |episode| %>
       <item>
         <title><%= episode.title %></title>
         <itunes:author><%= episode.author %></itunes:author>
         <itunes:subtitle><%= episode.subtitle %></itunes:subtitle>
         <itunes:summary><![CDATA[<%= episode.summary %>]]></itunes:summary>
         <itunes:image href="<%= episode.image_url %>" />
-        <enclosure url="<%= episode.enclosure_url %>" length="<%= episode.enclosure.size %>" type="<%= podcast.mime_type %>" />
-        <guid><%= episode.enclosure.url %></guid>
+        <enclosure url="<%= episode.download_url %>" length="<%= episode.enclosure.size %>" type="<%= episode.enclosure.content_type %>" />
+        <guid><%= episode.download_url %></guid>
         <pubDate><%= episode.published_at %></pubDate>
         <itunes:duration><%= episode.duration %></itunes:duration>
       </item>

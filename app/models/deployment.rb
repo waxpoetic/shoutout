@@ -4,15 +4,22 @@
 class Deployment
   include ActiveModel::Model
 
+  # A Podcast record that is used to back this deployment.
+  #
+  # @type [Podcast]
   attr_accessor :podcast
+  validates :podcast, presence: true
 
-  validates :file, presence: { message: 'not found' }
-  validates :template, presence: { message: 'could not be parsed' }
-
+  # Deploy a podcast.
+  #
+  # @returns whether the podcast deployed or not
   def self.create(podcast)
     new(podcast: podcast.decorate).save
   end
 
+  # Basic S3 attributes.
+  #
+  # @returns [Hash]
   def attributes
     {
       acl: 'public-read',
@@ -22,16 +29,26 @@ class Deployment
     }
   end
 
+  # Check validity of required fields, upload the podcast to the proper
+  # S3 path and distribute the file across the CloudFront CDN.
+  #
+  # @returns true if all steps pass, false and blocks if one fails
   def save
-    valid? && upload && invalidate
+    valid? && upload && distribute
   end
 
+  # Check if the file already exists on S3.
+  #
+  # @returns true if the file exists, false otherwise
   def persisted?
-    s3.get_object(attributes.slice(:bucket, :key))
+    s3.get_object(attributes.slice(:bucket, :key)).present?
   end
 
+  # Render the template as XML.
+  #
+  # @returns [String]
   def to_xml
-    template.result(binding)
+    PodcastsController.render :show, format: :rss, assigns: { podcast: podcast }
   end
 
   private
@@ -51,14 +68,6 @@ class Deployment
       },
       caller_reference: 'string'
     )
-  end
-
-  def template
-    ERB.new file
-  end
-
-  def file
-    File.read "#{Rails.root}/lib/templates/podcast.xml.erb"
   end
 
   def s3

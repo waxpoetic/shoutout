@@ -248,6 +248,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    mediainfo (0.7.2)
     meta_request (0.3.4)
       callsite (~> 0.0, >= 0.0.11)
       rack-contrib (~> 1.1)
@@ -435,6 +436,7 @@ DEPENDENCIES
   foundation-rails
   haml-rails
   jquery-rails
+  mediainfo
   meta_request
   pg
   pry-byebug

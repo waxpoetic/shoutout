@@ -13,7 +13,9 @@ CloudFront edge locations.
 
 ## Setup
 
-Install PostgreSQL, then clone this repo and run `./bin/setup`.
+Install PostgreSQL and Mediainfo, then clone this repo and run `./bin/setup`.
+
+For production, you will also need Redis.
 
 ## Usage
 

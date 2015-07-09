@@ -12,7 +12,10 @@ class PodcastsController < ApplicationController
   end
 
   def show
-    respond_with podcast
+    respond_to do |format|
+      format.html # show.html.haml
+      format.rss  # show.rss.erb
+    end
   end
 
   def create

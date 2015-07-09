@@ -21,8 +21,8 @@ class PodcastsController < ApplicationController
   end
 
   def update
-    podcast.update_attributes edit_params
-    respond_with podcast, change: 'podcast'
+    podcast.update_attributes(edit_params)
+    respond_with podcast
   end
 
   def destroy
@@ -31,7 +31,7 @@ class PodcastsController < ApplicationController
   end
 
   def deploy
-    DeployPodcastJob.perform_later podcast
-    respond_with podcast
+    DeployPodcastJob.perform_later(podcast)
+    respond_with podcast, notice: 'Podcast is being deployed'
   end
 end

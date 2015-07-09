@@ -1,8 +1,7 @@
 class EpisodesController < ApplicationController
   expose :podcast
 
-  resource :episode do
-    #ancestor :podcast
+  resource :episode, ancestor: :podcast do
     search :title, :author, :subtitle, :summary, :published_at, :duration
     modify :title, :author, :subtitle, :summary, :image, :enclosure, :published_at, :duration
   end
@@ -21,7 +20,7 @@ class EpisodesController < ApplicationController
   end
 
   def update
-    episode.update_attributes edit_params
+    episode.update_attributes(edit_params)
     respond_with podcast, change: 'episodes'
   end
 

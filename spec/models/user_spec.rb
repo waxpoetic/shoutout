@@ -1,7 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject do
+    User.new(
+      email: 'lester@tester.com',
+      password: 'password1',
+      password_confirmation: 'password1'
+    )
+  end
+
+  it 'provides a record of user authentication' do
+    expect(subject).to be_valid
+  end
 end
 
 # == Schema Information

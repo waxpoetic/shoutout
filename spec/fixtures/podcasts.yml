@@ -24,6 +24,17 @@ brotherly_audio:
   copyright: "&copy; 2015 Wax Poetic Records"
   subtitle: Philadelphia's live electronic music monthly
   author: Wax Poetic Records
-  description: brother.ly is a monthly party and podcast from Philly.
+  description: brother.ly is a monthly party and podcast from Philly. This is just the audio from our events.
+  email: events@thewonderbars.com
+  image_id: logo
+
+brotherly_video:
+  title: brother.ly video
+  link: http://brother.ly
+  language: en-us
+  copyright: "&copy; 2015 Wax Poetic Records"
+  subtitle: Philadelphia's live electronic music monthly
+  author: Wax Poetic Records
+  description: brother.ly is a monthly party and podcast from Philly. This is the live video stream.
   email: events@thewonderbars.com
   image_id: logo

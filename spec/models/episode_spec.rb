@@ -21,6 +21,12 @@ RSpec.describe Episode, type: :model do
   it 'validates all attributes' do
     expect(subject).to be_valid
   end
+
+  it 'analyzes duration after creation'
+
+  it 'populates with default attributes when they are not defined'
+
+  it 'deploys podcast after saving attributes'
 end
 
 # == Schema Information

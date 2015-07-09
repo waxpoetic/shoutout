@@ -25,6 +25,11 @@ RSpec.describe Podcast, type: :model do
     allow(DeployPodcastJob).to receive(:perform_later).with(subject).and_return(true)
     expect(subject.deploy).to eq(true)
   end
+
+  it 'is video when any episodes have video' do
+    podcast = podcasts :video
+    expect(podcast).to be_is_video
+  end
 end
 
 # == Schema Information

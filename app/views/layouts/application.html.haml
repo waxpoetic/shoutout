@@ -10,13 +10,13 @@
     = javascript_include_tag "application", 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    %header
+    %header{ data: { 'turbolinks-permanent' => true } }
       %nav.top-bar{ data: { topbar: true }, role: 'navigation' }
         %ul.title-area
           %li.name
             %h1= link_to 'Shoutout', root_path
       - flash.each do |type, message|
-        #messages
+        #messages{ data: { 'turbolinks-temporary' => true } }
           %div{ data: { alert: true }, class: "#{type} alert-box" }
             = message
             = link_to '&times;'.html_safe, '#', class: 'close'
@@ -24,3 +24,6 @@
     %main.row
       .large-12.columns
         = yield
+
+    #dialog.reveal-modal{ data: { reveal: true, 'turbolinks-permanent' => true } }
+      / This is where the modal content goes.

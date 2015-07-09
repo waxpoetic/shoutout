@@ -1,14 +1,20 @@
 = title 'Podcasts'
 
-- if podcasts.any?
-  %p
-    = link_to 'Manage New Podcast', new_podcast_path, class: 'button'
-  %dl
-    - podcasts.map(&:decorate).each do |podcast|
-      %dt= link_to podcast.title, podcast
-      %dd
-        = image_tag podcast.image_url
-- else
-  %h2
-    There are no podcasts.
-    = link_to 'Add one?', new_podcast_path
+.podcasts
+  - if podcasts.any?
+    - cache cache_key_for_podcasts do
+      %p
+        = link_to_modal 'Manage New Podcast', new_podcast_path, class: 'button'
+      %dl
+        - podcasts.map(&:decorate).each do |podcast|
+          - cache podcast do
+            %dt= link_to podcast.title, podcast
+            %dd
+              = image_tag podcast.image_url
+              %p= podcast.description
+              %p= link_to 'Delete', podcast, remote: true, class: 'delete button'
+  - else
+    .empty
+      %h2
+        There are no podcasts.
+        = link_to_modal 'Add one?', new_podcast_path

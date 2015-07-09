@@ -1,25 +1,21 @@
 require 'rails_helper'
 
-RSpec.feature 'home page' do
-  let :podcast do
-    podcasts :brotherly_audio
+RSpec.feature "Home page", type: :feature do
+  let(:user) { users(:admin) }
+
+  context 'when logged in' do
+    before { sign_in user }
+
+    scenario 'renders a table of podcasts' do
+      visit root_path
+      expect(page).to have_content('Podcasts')
+    end
   end
 
-  let :user do
-    users :admin
-  end
-
-  scenario 'renders the login page when not logged in' do
-    logout :user
-    visit root_path
-    expect(page).to have_content('Sign in')
-  end
-
-  scenario 'shows all of your podcasts when logged in' do
-    login_as user, scope: :user
-    visit root_path
-    expect(page).to have_content(podcast.title)
-    expect(page).to have_content(podcast.subtitle)
-    expect(page).to have_content('New Podcast')
+  context 'when not logged in' do
+    scenario 'prompts the user to log in' do
+      visit root_path
+      expect(page).to have_content('You must sign in or sign up to continue.')
+    end
   end
 end

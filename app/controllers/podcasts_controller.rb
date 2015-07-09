@@ -22,12 +22,12 @@ class PodcastsController < ApplicationController
 
   def update
     podcast.update_attributes edit_params
-    respond_with podcast
+    respond_with podcast, change: 'podcast'
   end
 
   def destroy
     podcast.destroy
-    respond_with podcasts_path
+    respond_with podcasts_path, change: 'podcasts'
   end
 
   def deploy

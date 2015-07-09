@@ -52,9 +52,5 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.include Warden::Test::Helpers, type: :feature
-  config.include Devise::TestHelpers, type: :request
-
-  config.before :each do |example|
-    login_as users(:admin), scope: :user if example.metadata[:admin]
-  end
+  config.include Devise::TestHelpers,   type: :controller
 end

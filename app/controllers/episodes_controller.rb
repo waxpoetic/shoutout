@@ -17,16 +17,16 @@ class EpisodesController < ApplicationController
 
   def create
     episode.save
-    respond_with episode
+    respond_with podcast, change: 'episodes'
   end
 
   def update
     episode.update_attributes edit_params
-    respond_with episode
+    respond_with podcast, change: 'episodes'
   end
 
   def destroy
     episode.destroy
-    respond_with episodes_path
+    respond_with podcast, change: 'episodes'
   end
 end

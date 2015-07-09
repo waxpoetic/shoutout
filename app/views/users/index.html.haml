@@ -1,16 +1,18 @@
 = title 'Users'
 
-.users
-  %table
-    %thead
-      %tr
-        %th Email
-        %th= link_to 'New User', new_user_registration_path, class: 'button'
-    %tbody
-      - users.each do |user|
+#users
+  - cache cache_key_for(:users) do
+    %table
+      %thead
         %tr
-          %td= link_to user.email, user
-          %td
-            = link_to 'Edit', edit_user_registration_path(user), class: 'button'
-            = link_to 'Destroy', destroy_user_registration_path(user), class: 'button'
+          %th Email
+          %th= link_to 'New User', new_user_registration_path, class: 'button'
+      %tbody
+        - users.each do |user|
+          - cache user do
+            %tr{ id: "users:#{user.id}", itemid: user.id }
+              %td= link_to user.email, user
+              %td
+                = link_to 'Edit', edit_user_registration_path(user), class: 'button'
+                = link_to 'Destroy', destroy_user_registration_path(user), class: 'button'
 

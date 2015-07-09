@@ -18,6 +18,7 @@ gem 'devise'
 gem 'haml-rails'
 gem 'aws-sdk'
 gem 'refile-s3', github: 'refile/refile-s3'
+gem 'turbolinks', github: 'rails/turbolinks'
 
 group :development do
   gem 'meta_request'

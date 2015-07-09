@@ -1,4 +1,4 @@
 jQuery ->
-  # When episodes are deleted, fade them out from the table.
-  $('.episode .destroy a').on 'ajax:success', (episode, event) ->
-    $(event.currentTarget).closest('.episode').fadeOut 250, -> $(this).remove()
+  $('.podcasts .delete.button').on 'ajax:success', ->
+    $(this).closest('dd').fadeOut(250).remove()
+    $(this).closest('dt').fadeOut(250).remove()

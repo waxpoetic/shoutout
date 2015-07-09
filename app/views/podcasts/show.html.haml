@@ -1,28 +1,33 @@
 = title podcast.title
 
-.information.row
-  = render 'form'
+#podcast
+  .title
+    %h2 Edit
+    = link_to 'Deploy', deploy_podcast_path(podcast), class: 'large deploy button success'
 
-.episodes.row
-  .large-12.columns
-    %table
-      %thead
-        %tr
-          %th Title
-          %th Duration
-          %th
-            = link_to 'Upload', new_podcast_episode_path(podcast), class: 'button secondary'
+  .details
+    = render 'form'
 
-      %tbody
-        - unless podcast.episodes.any?
-          %tr.none
-            %td{ colspan: 3 }
-              %p No episodes available.
-        - podcast.episodes.in_sequence.each do |episode|
-          %tr.episode
-            %td.title= episode.title
-            %td.duration= episode.duration
-            %td.controls
-              %ul
-                %li.edit= link_to 'Edit', episode, class: 'button'
-                  %li.destroy= link_to 'Delete', episode, remote: true, method: :delete, class: 'button warning'
+  #episodes
+    %h2 Episodes
+
+    - cache cache_key_for_episodes(podcast) do
+      %table
+        %thead
+          %tr
+            %th.title Title
+            %th.duration Duration
+            %th.controls
+              = link_to_modal 'Upload', new_podcast_episode_path(podcast), class: 'upload button secondary'
+
+        %tbody
+          - podcast.episodes.order(:published_at).each do |episode|
+            - cache episode do
+              %tr{ id: "episodes:#{episode.id}", itemid: episode.id }
+                %td.title= link_to episode.title, episode
+                %td.duration= episode.duration
+                %td.controls
+                  %nav
+                    = link_to 'Download', episode.enclosure.url, class: 'download button'
+                    = link_to_modal 'Edit', episode, class: 'edit button'
+                    = link_to 'Delete', episode, class: 'delete button', method: :delete

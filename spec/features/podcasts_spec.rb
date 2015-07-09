@@ -1,34 +1,43 @@
 require 'rails_helper'
 
-RSpec.feature 'when managing podcast feeds', admin: true do
-  let :podcast do
-    podcasts :brotherly_audio
+RSpec.feature "Podcasts", type: :feature do
+  let(:user) { users(:admin) }
+  let(:podcast) { podcasts(:brotherly) }
+
+  context 'when not logged in' do
+    scenario 'index can not be viewed' do
+      visit podcasts_path
+      expect(page).to have_content('You must sign in or sign up to continue.')
+    end
+
+    scenario 'show can not be viewed' do
+      visit podcasts_path(podcast)
+      expect(page).to have_content('You must sign in or sign up to continue.')
+    end
   end
 
-  scenario 'new podcasts can be created' do
-    visit new_podcast_path
+  context 'when logged in' do
+    before { sign_in user }
 
-    fill_in 'Title', with: 'Title of Podcast'
-    click_button 'Save'
+    scenario 'a collection of podcasts are viewable' do
+      visit podcasts_path
+      expect(page).to have_content('Podcasts')
+    end
 
-    expect(page).to have_content('New podcast has been created.')
-  end
+    context 'a single podcast' do
+      before { visit podcasts_path(podcast) }
 
-  scenario 'existing podcasts can be edited' do
-    visit podcast_path(podcast)
+      scenario 'is viewable' do
+        visit podcasts_path(podcast)
+        expect(page).to have_content(podcast.name)
+      end
 
-    fill_in 'Title', with: 'New title of podcast'
-    click_button 'Save'
-
-    expect(page).to have_content('New podcast has been created.')
-    expect(page).to have_content('New title of podcast')
-  end
-
-  scenario 'existing podcasts can be destroyed' do
-    visit podcasts_path
-
-    click_button 'Destroy'
-
-    expect(page).not_to have_content(podcast.title)
+      scenario 'can be edited' do
+        fill_in 'Name', with: 'New name'
+        click_button 'Save'
+        expect(page).to have_content('Podcast has been updated.')
+        expect(page).to have_content('New name')
+      end
+    end
   end
 end

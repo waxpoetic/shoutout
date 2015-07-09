@@ -1,5 +1,5 @@
 class Podcast < ActiveRecord::Base
-  has_many :episodes, dependent: :destroy
+  has_many :episodes, dependent: :destroy, inverse_of: :podcast
 
   attachment :image
 
@@ -12,12 +12,17 @@ class Podcast < ActiveRecord::Base
   validates :description, presence: true
   validates :email,       presence: true
   validates :image,       presence: true
+  validates :categories,  presence: true
+
+  after_commit :deploy
 
   def is_video?
     podcast.episodes.with_video.any?
   end
 
-  validates :categories,  presence: true
+  def deploy
+    DeployPodcastJob.perform_later self
+  end
 end
 
 # == Schema Information

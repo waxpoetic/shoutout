@@ -20,6 +20,7 @@ gem 'aws-sdk'
 gem 'refile-s3', github: 'refile/refile-s3'
 gem 'turbolinks', github: 'rails/turbolinks'
 gem 'mediainfo'
+gem 'backport_new_renderer'
 
 group :development do
   gem 'meta_request'

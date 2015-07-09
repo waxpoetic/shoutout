@@ -25,7 +25,7 @@ class Deployment
       acl: 'public-read',
       bucket: Rails.application.config.s3.bucket,
       key: Rails.application.config.s3.filename,
-      body: template.to_xml
+      body: to_xml
     }
   end
 
@@ -34,7 +34,7 @@ class Deployment
   #
   # @returns true if all steps pass, false and blocks if one fails
   def save
-    valid? && upload && distribute
+    valid? && upload and distribute
   end
 
   # Check if the file already exists on S3.
@@ -48,20 +48,16 @@ class Deployment
   #
   # @returns [String]
   def to_xml
-    PodcastsController.render :show, format: :rss, assigns: { podcast: podcast }
+    PodcastsController.render :show, format: :rss, id: podcast.id
   end
 
   private
-
-  def template
-    Template.new self
-  end
 
   def upload
     s3.put_object(attributes)
   end
 
-  def invalidate
+  def distribute
     cloudfront.create_invalidation(
       distribution_id: Rails.application.secrets.aws_cloudfront_distribution_id,
       invalidation_batch: {

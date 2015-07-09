@@ -58,10 +58,4 @@ RSpec.configure do |config|
   config.before :suite do
     Warden.test_mode!
   end
-
-  config.before :each do |example|
-    if example.metadata[:admin]
-      login_as users(:admin), scope: :user
-    end
-  end
 end

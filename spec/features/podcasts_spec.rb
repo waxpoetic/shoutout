@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "Podcasts", type: :feature do
   let(:user) { users(:admin) }
-  let(:podcast) { podcasts(:brotherly) }
+  let(:podcast) { podcasts(:brotherly_audio) }
 
   context 'when not logged in' do
     scenario 'index can not be viewed' do

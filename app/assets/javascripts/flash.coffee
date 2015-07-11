@@ -1,4 +1,4 @@
-$(document).on 'page:load' ->
+$(document).on 'page:load', ->
   $('form, a').on 'ajax:complete', (request) ->
     $.each request.getResponseHeader('Flash'), (i, message) ->
       $('#messages').append(

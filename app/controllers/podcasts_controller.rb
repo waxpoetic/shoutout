@@ -1,4 +1,5 @@
 class PodcastsController < ApplicationController
+  respond_to :html, :rss
   skip_before_action :authenticate_user!, only: [:show]
 
   resource :podcast do
@@ -14,10 +15,7 @@ class PodcastsController < ApplicationController
   end
 
   def show
-    respond_to do |format|
-      format.html # show.html.haml
-      format.rss  # show.rss.erb
-    end
+    respond_with podcast
   end
 
   def create

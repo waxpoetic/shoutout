@@ -15,7 +15,8 @@ RSpec.feature "Home page", type: :feature do
   context 'when not logged in' do
     scenario 'prompts the user to log in' do
       visit root_path
-      expect(page).to have_content('You must sign in or sign up to continue.')
+      expect(page).to have_content(I18n.t('devise.failure.unauthenticated'))
+      expect(page).to have_content('Sign In')
     end
   end
 end

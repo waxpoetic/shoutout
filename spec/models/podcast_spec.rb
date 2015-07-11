@@ -27,7 +27,9 @@ RSpec.describe Podcast, type: :model do
   end
 
   it 'is video when any episodes have video' do
-    podcast = podcasts :video
+    podcast = podcasts :brotherly_video
+    expect(podcast.episodes).not_to be_empty
+    expect(podcast.episodes.first).to be_is_video
     expect(podcast).to be_is_video
   end
 end

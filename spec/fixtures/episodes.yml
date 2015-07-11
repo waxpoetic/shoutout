@@ -31,3 +31,15 @@ brotherly_audio_one:
   enclosure_id: anothertest
   published_at: <%= DateTime.now %>
   duration: '4:20'
+
+brotherly_video_one:
+  podcast: brotherly_video
+  title: whatever video
+  author: hello
+  subtitle: hello hi
+  summary: hello hello hello hi
+  image_id: test
+  enclosure_id: anothertest
+  published_at: <%= DateTime.now %>
+  duration: '4:20'
+  is_video: true

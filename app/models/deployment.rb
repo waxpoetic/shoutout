@@ -48,7 +48,13 @@ class Deployment
   #
   # @returns [String]
   def to_xml
-    PodcastsController.render :show, format: :rss, id: podcast.id
+    PodcastsController.renderer.new(
+      'action_dispatch.request.path_parameters' => {
+        controller: 'podcasts',
+        action:     'show',
+        id:         podcast.id
+      }
+    ).render :show, format: :rss
   end
 
   private

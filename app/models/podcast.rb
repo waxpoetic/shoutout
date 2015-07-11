@@ -17,7 +17,7 @@ class Podcast < ActiveRecord::Base
   after_commit :deploy
 
   def is_video?
-    podcast.episodes.with_video.any?
+    episodes.with_video.any?
   end
 
   def deploy

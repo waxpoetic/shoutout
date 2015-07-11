@@ -36,7 +36,10 @@ class PodcastsController < ApplicationController
   end
 
   def deploy
-    DeployPodcastJob.perform_later(podcast)
-    respond_with podcast, notice: 'Podcast is being deployed'
+    if DeployPodcastJob.perform_later(podcast)
+      redirect_to podcast, notice: I18n.t('flash.actions.deploy.notice')
+    else
+      redirect_to podcast, alert: I18n.t('flash.actions.deploy.alert')
+    end
   end
 end
